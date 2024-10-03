@@ -10,22 +10,28 @@ def option_1 ():
     attemptsFailed = 2
 
     while attempts < 3:
-        numberUser = int(input("Introduce un número entre 1 y 10: "))
 
-        if numberUser is None:
-            print("Error: Debes de introducir un numero")
+        try:
+            numberUser = int(input("Introduce un número entre 1 y 10: "))
 
-        if numberRandom == numberUser:
-            print(f'\nFelicidades, has acertado el número aleatorio, el número aleatorio era {numberRandom}\n')
-            break
-        elif numberUser < numberRandom:
-            print(f'\n\tEl número que has introducido es menor que el número aleatorio \n\tEl número que has dicho es el {numberUser} \n\tTe quedan {attemptsFailed} intento(s).\n')
-            attempts += 1
-            attemptsFailed -= 1
-        else:
-            print(f'\n\tEl número que has introducido es mayor que el número aleatorio \n\tEl número que has dicho es el {numberUser} \n\tTe quedan {attemptsFailed} intento(s).\n')
-            attempts += 1
-            attemptsFailed -= 1
+            if numberUser is None:
+                print("\tError: Debes de introducir un numero")
+            elif numberUser < 1 or numberUser > 10:
+                print("\tError: Debes de introducir un número entre 1 y 10")
+            else:
+                if numberRandom == numberUser:
+                    print(f'\nFelicidades, has acertado el número aleatorio, el número aleatorio era {numberRandom}\n')
+                    break
+                elif numberUser < numberRandom:
+                    print(f'\n\tEl número que has introducido es menor que el número aleatorio \n\tEl número que has dicho es el {numberUser} \n\tTe quedan {attemptsFailed} intento(s).\n')
+                    attempts += 1
+                    attemptsFailed -= 1
+                else:
+                    print(f'\n\tEl número que has introducido es mayor que el número aleatorio \n\tEl número que has dicho es el {numberUser} \n\tTe quedan {attemptsFailed} intento(s).\n')
+                    attempts += 1
+                    attemptsFailed -= 1
+        except ValueError: 
+            print("\tError: Solo puedes introducir un numero, no se puede letras ni numeros con decimales")
 
         if attempts == 3:
             print(f'Lo siento, has agotado los intentos, el número aleatorio era {numberRandom}\n')
@@ -39,47 +45,52 @@ def option_2():
     pointsNPC = 0
 
     print("\tComienza la partida\n")
-
+    
     while  pointsUser < 3 and pointsNPC < 3:
-        print(f'\tPuntos de usuario: {pointsUser}, Puntos del NPC: {pointsNPC}\n')
-        print("\t1. Piedra \n\t2. Papel \n\t3. Tijeras\n")
+        try:
+            optionUser = int(input("Introduce un numero del 1 al 3: "))
+            optionValueUser = ""
 
-        optionUser = int(input("Introduce un numero del 1 al 3: "))
-        optionValueUser = ""
+            if optionUser < 1 or optionUser > 3:
+                print("\tError: Debes de introducir un número entre 1 y 3")
+            else:
+                print("\t1. Piedra \n\t2. Papel \n\t3. Tijeras\n")
 
-        if optionUser == 1:
-            optionValueUser = "Piedra"
-        elif  optionUser == 2:
-            optionValueUser = "Papel"
-        elif optionUser == 3:
-            optionValueUser = "Tijeras"
+                if optionUser == 1:
+                    optionValueUser = "Piedra"
+                elif  optionUser == 2:
+                    optionValueUser = "Papel"
+                elif optionUser == 3:
+                    optionValueUser = "Tijeras"
 
-        optionNPC = random.randint(1, 3)
-        optionValueNPC = ""
+                optionNPC = random.randint(1, 3)
+                optionValueNPC = ""
 
-        if optionNPC == 1:
-            optionValueNPC = "Piedra"
-        elif  optionNPC == 2:
-            optionValueNPC = "Papel"
-        elif optionNPC == 3:
-            optionValueNPC = "Tijeras"
+                if optionNPC == 1:
+                        optionValueNPC = "Piedra"
+                elif  optionNPC == 2:
+                        optionValueNPC = "Papel"
+                elif optionNPC == 3:
+                    optionValueNPC = "Tijeras"
 
-        if optionUser is None:
-            print("Opción no válida")
-        
-        if optionValueNPC == optionValueUser:
-            print(f'\n\t¡Empate! Ambos elegiste {optionValueUser}')
-        elif optionValueUser == "Papel" and  optionValueNPC == "Tijeras" or optionValueUser == "Tijeras" and optionValueNPC == "Piedra" or optionValueUser == "Piedra" and optionValueNPC == "Papel":
-            print(f'\n\t¡Gana el NPC! El NPC ha elegido {optionValueNPC} y el usuario ha elegido {optionValueUser}')
-            pointsNPC += 1
-        elif optionValueUser == "Papel" and  optionValueNPC == "Piedra" or optionValueUser == "Piedra" and optionValueNPC == "Tijeras" or optionValueUser == "Tijeras" and optionValueNPC == "Papel":
-            print(f'\n\t¡Gana el usuario! El usuario ha elegido {optionValueUser} y el NPC ha elegido {optionValueNPC}')
-            pointsUser += 1
+                if optionValueNPC == optionValueUser:
+                    print(f'\t¡Empate! Ambos elegiste {optionValueUser}')
+                    print(f'\tPuntos de usuario: {pointsUser}, Puntos del NPC: {pointsNPC}\n')
+                elif optionValueUser == "Papel" and  optionValueNPC == "Tijeras" or optionValueUser == "Tijeras" and optionValueNPC == "Piedra" or optionValueUser == "Piedra" and optionValueNPC == "Papel":
+                    print(f'\t¡Gana el NPC! El NPC ha elegido {optionValueNPC} y el usuario ha elegido {optionValueUser}')
+                    pointsNPC += 1
+                    print(f'\tPuntos de usuario: {pointsUser}, Puntos del NPC: {pointsNPC}\n')
+                elif optionValueUser == "Papel" and  optionValueNPC == "Piedra" or optionValueUser == "Piedra" and optionValueNPC == "Tijeras" or optionValueUser == "Tijeras" and optionValueNPC == "Papel":
+                    print(f'\t¡Gana el usuario! El usuario ha elegido {optionValueUser} y el NPC ha elegido {optionValueNPC}')
+                    pointsUser += 1
+                    print(f'\tPuntos de usuario: {pointsUser}, Puntos del NPC: {pointsNPC}\n')
 
-        if pointsUser == 3:
-            print(f'\n\t¡Felicidades! Has ganado la partida con un marcador de { pointsUser} - {pointsNPC}\n')
-        elif pointsNPC == 3:
-            print(f'\n\t¡Lo siento! Has perdido la partida con un marcador de { pointsUser} - {pointsNPC}\n')
+                if pointsUser == 3:
+                    print(f'\n\t¡Felicidades! Has ganado la partida con un marcador de { pointsUser} - {pointsNPC}\n')
+                elif pointsNPC == 3:
+                    print(f'\n\t¡Lo siento! Has perdido la partida con un marcador de { pointsUser} - {pointsNPC}\n')
+        except ValueError: 
+                print("\tError: Solo puedes introducir un numero, no se puede letras ni numeros con decimales")
 
 # Juego 3:  El ahorcado
 def option_3():
@@ -99,29 +110,34 @@ def option_3():
     print(" ".join(palabra_oculta))
 
     while attempts > 0:
+
         letra = input("Introduce una letra: ").upper()
 
         if letra is None:
             print("Error: Debes de escribir una letra")
         elif len(letra) > 1:
             print("Error: Solamente puedes escribir una letra")
-
-        if letra in palabra_secreta:
-            for i in range(len(palabra_secreta)):
-                if palabra_secreta[i] == letra:
-                    palabra_oculta[i] = letra
-            print(" ".join(palabra_oculta))
+            # Comprueba si es una letra
+        elif letra.isalpha() == False:
+            print("\tError: Solo puedes introducir un letra, no se puede numeros")
         else:
-            attempts -= 1
-            print(f"\t\nIncorrecto, te quedan {attempts} intentos\n")
-        
-        if "_" not in palabra_oculta:
-            print("\nFelicidades, has ganado\n")
-            break
-    
-        if attempts == 0:
-            print(f"\nLo siento, has perdido. La palabra era {palabra_secreta}\n")
-            break
+            if letra in palabra_secreta:
+                for i in range(len(palabra_secreta)):
+                    if palabra_secreta[i] == letra:
+                        palabra_oculta[i] = letra
+                print(" ".join(palabra_oculta))
+            else:
+                attempts -= 1
+                print(f"\t\nIncorrecto, te quedan {attempts} intentos\n")
+                print(" ".join(palabra_oculta))
+
+            if "_" not in palabra_oculta:
+                print("\nFelicidades, has ganado\n")
+                break
+
+            if attempts == 0:
+                print(f"\nLo siento, has perdido. La palabra era {palabra_secreta}\n")
+                break
 
 # Menu para eleccion del juego
 GameMenu = {
@@ -144,5 +160,4 @@ while True:
         print("¡Hasta Luego!")
         break
     else:
-        print("\nError: Debes de selecionar un número valido\n")
-
+        print("\nError: Debes de selecionar un número valido")
